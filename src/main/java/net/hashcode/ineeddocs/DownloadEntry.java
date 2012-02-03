@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.hashcode.ineeddocs;
 
 import java.io.File;
@@ -20,7 +16,7 @@ import org.apache.log4j.Logger;
  *
  * @author shairon
  */
-public class DownloadEntry implements Runnable , Callable {
+public class DownloadEntry implements Runnable, Callable {
 
   private final URL docUrl;
   private static final Logger log = Logger.getLogger(DownloadEntry.class);
@@ -31,7 +27,6 @@ public class DownloadEntry implements Runnable , Callable {
     this.destination = destination;
   }
 
-  
   public void download() {
 
     try {
@@ -54,7 +49,7 @@ public class DownloadEntry implements Runnable , Callable {
       in.close();
       dclient.getConnectionManager().closeExpiredConnections();
     } catch (Exception e) {
-      log.error(String.format("Downloading %s, error[%s]: %s",docUrl, e,e.getMessage()));
+      log.error(String.format("Downloading %s, error[%s]: %s", docUrl, e, e.getMessage()));
     }
   }
 
@@ -66,6 +61,4 @@ public class DownloadEntry implements Runnable , Callable {
     download();
     return null;
   }
-
-  
 }

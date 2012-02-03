@@ -20,10 +20,6 @@ public class ScapLinksTest {
     assertThat(links, hasItem("http://newyorkinvasivespecies.info/PlantAssessments/Ligustrum.sinense.NYS.pdf"));
     assertThat(links, hasItem("http://www.oag.state.ny.us/bureaus/real_estate_finance/pdfs/tenants_rights_guide.pdf"));
     assertThat(links, hasItem("http://www.governor.ny.gov/assets/Secure%20Communities.pdf"));
-    
-
 
   }
-
-
 }

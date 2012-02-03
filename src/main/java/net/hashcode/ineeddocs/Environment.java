@@ -32,7 +32,6 @@ public class Environment {
 
   private static File[] fetchFiles(String dirName) {
     try {
-    //String langFiles = ClassLoader.class.getResource(dirName).getPath();
       File files[] = new File(".",dirName).listFiles();
       if (files == null){
       log.warn("Directory "+dirName+" is empty");
@@ -42,14 +41,13 @@ public class Environment {
       
     } catch (Exception e) {
       log.error("File or Directory "+dirName+" is required in the class path but it wasn't found.");
-      e.printStackTrace();
       System.exit(1);
       return null;
     }
   }
 
   private static Properties getProperty(String propFile) throws IOException {
-    //InputStream in = ClassLoader.class.getResourceAsStream(propFile);
+
     InputStream in = new FileInputStream(new File(".",propFile));
     Properties prop = new Properties();
     prop.load(in);
@@ -169,6 +167,5 @@ public class Environment {
   public String getUserAgent() {
     return userAgent;
   }
-
   
 }

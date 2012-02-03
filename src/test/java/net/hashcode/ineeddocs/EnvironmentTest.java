@@ -1,13 +1,5 @@
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.hashcode.ineeddocs;
 
-import net.hashcode.ineeddocs.Engine;
-import net.hashcode.ineeddocs.Environment;
-import net.hashcode.ineeddocs.LanguageEntry;
 import java.io.File;
 import java.util.List;
 import java.io.IOException;

@@ -12,7 +12,6 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.log4j.Logger;
 import java.util.concurrent.Executors;
-import java.util.concurrent.FutureTask;
 
 /**
  *
@@ -33,7 +32,7 @@ public class DocumentDownloader {
 
     HttpClient httpclient = new DefaultHttpClient();
     ExecutorService executor = Executors.newFixedThreadPool(6);
-    List<Callable<Object>> downloadList = new ArrayList<Callable<Object>>(langEntry.documentTypes.length * langEntry.querySeeds.length*langEntry.documentTypes.length);
+    List<Callable<Object>> downloadList = new ArrayList<Callable<Object>>(langEntry.documentTypes.length * langEntry.querySeeds.length * langEntry.documentTypes.length);
     for (String docType : langEntry.documentTypes) {
       for (String seed : langEntry.querySeeds) {
 
@@ -47,7 +46,7 @@ public class DocumentDownloader {
           httpget.addHeader("User-Agent", Environment.instance().getUserAgent());
           String responseBody = httpclient.execute(httpget, new BasicResponseHandler());
           httpclient.getConnectionManager().closeExpiredConnections();
-          
+
           for (final URL docUrl : ScrapLinks.getUrls(responseBody, docType)) {
 
             final File destination = Environment.instance().getDocumentDestination(langEntry, docUrl);
@@ -56,19 +55,15 @@ public class DocumentDownloader {
 
           }
         } catch (Exception e) {
-          e.printStackTrace();
           log.error(String.format("Error [%s] making url(%s) template: %s, doctype: %s, seed: %s, lang: %s",
                   e.getMessage(), engine.name, engine.template, docType, seed, langEntry.engineLang));
         }
-        
-        
       }
     }
     try {
-    executor.invokeAll(downloadList);
-      
+      executor.invokeAll(downloadList);
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error("Error downloading document " + e.getMessage());
     }
     executor.shutdownNow();
 
